@@ -1,1 +1,6 @@
-import '../style/main.css'
+import '../style/index.scss'
+import './content.js'
+
+console.log('app.js')
+
+

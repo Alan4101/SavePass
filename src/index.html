@@ -13,7 +13,8 @@
 <!--header-->
 <header class="main-header">
     <div class="main-header__logo">
-        <span>Master Password</span>
+        <span class="large-logo">Master Password</span>
+        <span class="small-logo">MP</span>
     </div>
     <div class="main-header__search">
         <form id="search-records-form" class="main-header__search-records-form">
@@ -34,11 +35,118 @@
 </header>
 <!--main content-->
 <div class="container-fluid">
-    <aside class="sub-nav"></aside>
-    <main class="container">
-        <div class="row"></div>
-    </main>
+    <div class="row">
+        <div id="control-nav" class="control-nav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <aside id="sub-nav" class="sub-nav enable-panel">
+            <div class="editing-panel">
+                <button id="add-new-card" class="btn-panel add-new-card" title="Add new card"><i class="fas fa-plus"></i></button>
+            </div>
+        </aside>
+        <main class="container container-col">
+            <div class="row main-wrapper wrapper">
+
+                <div class="col-md-4 col-xs-12">
+                    <div class="main-wrapper__item">
+                        <div class="item-header">
+                            <h3 class="title-passcard">Telegram</h3>
+                        </div>
+                        <div class="item-body">
+                            <label>Login:</label>
+                            <p class="login-field">login_login</p>
+                            <label>Password:</label>
+                            <p class="pass-field">QWERTYU</p>
+                        </div>
+                        <div class="item-footer">
+                            <p class="date-field" title="Date of creation">22.11.20</p>
+                            <p class="time-field" title="Time of creation">19:05</p>
+                            <div class="item-btn">
+                                <button class="btn-edit-passcard btn-card" title="Edit"><i class="fas fa-pen"></i></button>
+                                <button class="btn-delete-passcard btn-card" title="Delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                    </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="main-wrapper__item">
+                        <div class="item-header">
+                            <h3 class="title-passcard">Telegram</h3>
+                        </div>
+                        <div class="item-body">
+                            <label>Login</label>
+                            <p class="login-field">login_login</p>
+                            <label>Password</label>
+                            <p class="pass-field">QWERTYU</p>
+                        </div>
+                        <div class="item-footer">
+                            <p class="date-field">22.11.20</p>
+                            <p class="time-field">19:05</p>
+                            <div class="item-btn">
+                                <button class="btn-edit-passcard btn-card"><i class="fas fa-pen"></i></button>
+                                <button class="btn-delete-passcard btn-card"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12"><div class="main-wrapper__item">
+                    <div class="item-header">
+                        <h3 class="title-passcard">Telegram</h3>
+                    </div>
+                    <div class="item-body">
+                        <label>Login</label>
+                        <p class="login-field">login_login</p>
+                        <label>Password</label>
+                        <p class="pass-field">QWERTYU</p>
+                    </div>
+                    <div class="item-footer">
+                        <p class="date-field">22.11.20</p>
+                        <p class="time-field">19:05</p>
+                        <div class="item-btn">
+                            <button class="btn-edit-passcard btn-card"><i class="fas fa-pen"></i></button>
+                            <button class="btn-delete-passcard btn-card"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+        </main>
+    </div>
 </div>
+<!--<div class="modal-window">-->
+<!--    <div class="modal-wrapper">-->
+<!--        <div class="modal-header">-->
+<!--            <div class="modal-title">-->
+<!--                <h3>Title</h3>-->
+<!--            </div>-->
+<!--            <button class="modal-btn close-modal"><i class="fas fa-times"></i></button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--            <form id="" action="" name="form-add-source" class="form-add-item">-->
+<!--                <div class="modal-input">-->
+<!--                    <label for="input-name-source">Name source</label>-->
+<!--                    <input id="input-name-source" class="inp-source" type="text">-->
+<!--                </div>-->
+<!--                <div class="modal-input">-->
+<!--                    <label for="input-login-source">Login</label>-->
+<!--                    <input id="input-login-source" class="inp-source" type="text">-->
+<!--                </div>-->
+<!--                <div class="modal-input">-->
+<!--                    <label for="input-pass-source">Password</label>-->
+<!--                    <input id="input-pass-source" class="inp-source" type="text">-->
+<!--&lt;!&ndash;                    <input id="input-pass-source" class="inp-source" type="password">&ndash;&gt;-->
+<!--                </div>-->
+
+<!--            </form>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--            <button class="modal-btn add-source-btn">Add</button>-->
+<!--            <button class="modal-btn close-modal-btn">Close</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <!--scripts-->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
