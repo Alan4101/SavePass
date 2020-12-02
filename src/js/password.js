@@ -11,7 +11,7 @@ export class Password{
             .then(res=> res.json())
             .then(Password.renderToHtml)
     }
-//відображення на даних з серверу
+//відображення на даних з сервера
     static renderToHtml(data){
         for(let item in data){
             document.getElementById('main-wrapper').insertAdjacentHTML('afterbegin', toCard(data[item]))
