@@ -1,11 +1,12 @@
-import { openModalAddNewCard } from "./modal";
+import {openModalAddNewCard, openModalAuth} from "./modal";
 
-console.log('content.js')
+// console.log('content.js')
 
 const subNav = document.getElementById('sub-nav')
 const controlNav = document.getElementById('control-nav')
 const mainContainer = document.querySelector('.container-col')
-const addNewCard = document.getElementById('add-new-card')
+const addNewCardBtn = document.getElementById('add-new-card')
+const accountBtn = document.getElementById('login-account')
 
 function toggleNavHandler(){
     // debugger
@@ -31,10 +32,14 @@ function mediaQueryForSubPanel(){
     }
 }
 function renderAddCardModal(){
-   document.body.innerHTML = openModalAddNewCard('Create new item')
+   document.body.insertAdjacentHTML('beforeend', openModalAddNewCard('Create new item'))
+}
+function renderAuthForm(){
+    document.body.insertAdjacentHTML('beforeend', openModalAuth('Authorization'))
+    this.disabled = true
 }
 
 document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
 controlNav.addEventListener('click', toggleNavHandler)
-addNewCard.addEventListener('click',renderAddCardModal)
-
+addNewCardBtn.addEventListener('click',renderAddCardModal)
+accountBtn.addEventListener('click', renderAuthForm)

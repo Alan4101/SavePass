@@ -277,7 +277,11 @@ body, p{
     .modal-body{
       font-weight: 200;
     }
-    .modal-footer{}
+    .modal-footer{
+      .close-modal-btn{
+        //padding: 1em;
+      }
+    }
   }
   .modal-btn{
     outline: none;
