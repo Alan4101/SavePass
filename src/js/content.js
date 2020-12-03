@@ -1,12 +1,11 @@
 import {openModalAddNewCard, openModalAuth} from "./modal";
 
-// console.log('content.js')
-
 const subNav = document.getElementById('sub-nav')
 const controlNav = document.getElementById('control-nav')
 const mainContainer = document.querySelector('.container-col')
 const addNewCardBtn = document.getElementById('add-new-card')
 const accountBtn = document.getElementById('login-account')
+
 
 function toggleNavHandler(){
     // debugger
@@ -24,6 +23,7 @@ function toggleNavHandler(){
         mainContainer.style.width = 'calc(100% - 60px)'
     }
 }
+
 function mediaQueryForSubPanel(){
     if(window.matchMedia("(max-width:769px)").matches){
         subNav.classList.add('disable-panel')
@@ -31,12 +31,22 @@ function mediaQueryForSubPanel(){
         subNav.style.width = '0px'
     }
 }
+
 function renderAddCardModal(){
-   document.body.insertAdjacentHTML('beforeend', openModalAddNewCard('Create new item'))
+    document.body.insertAdjacentHTML('beforeend', openModalAddNewCard('Create new item'))
+    animationModal()
 }
+
 function renderAuthForm(){
     document.body.insertAdjacentHTML('beforeend', openModalAuth('Authorization'))
     this.disabled = true
+    animationModal()
+}
+
+function animationModal(){
+    setTimeout(()=>{
+        document.querySelector('.modal-wrapper').classList.remove('hidden-modal')
+    },100)
 }
 
 document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)

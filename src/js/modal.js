@@ -1,5 +1,6 @@
-// console.log('modal');
-//
+import {clearInput, isValid} from "./utils";
+import {Password} from "./password";
+
 export function openModalAddNewCard(title = 'Modal'){
 
     const content = `<form id="" action="" name="form-add-source" class="form-add-item">
@@ -13,10 +14,10 @@ export function openModalAddNewCard(title = 'Modal'){
                 </div>
                 <div class="modal-input">
                     <label for="input-pass-source">Password</label>
-                    <input id="input-pass-source" class="inp-source" type="text" required>
+                    <input id="input-pass-source" class="inp-source" type="password" required>
                 </div>
             </form>`
-    return createModal(content,title,'Add')
+    return createModal(content,title,'Add', 'add-new-pass')
 }
 
 export function openModalAuth(title='Modal'){
@@ -34,9 +35,9 @@ export function openModalAuth(title='Modal'){
     return createModal(content, title, 'Sign in')
 }
 /*create clear modal*/
-function createModal(content, title, btnName){
-    return  `<div class="modal-window">
-    <div class="modal-wrapper">
+function createModal(content, title, btnName, btnAction){
+    return  `<div class="modal-window ">
+    <div class="hidden-modal modal-wrapper ">
         <div class="modal-header">
             <div class="modal-title">
                 <h3>${title}</h3>
@@ -47,7 +48,7 @@ function createModal(content, title, btnName){
             ${content}
         </div>
         <div class="modal-footer">
-            <button class="modal-btn add-source-btn">${btnName}</button>
+            <button class="modal-btn add-source-btn" data-action="${btnAction}">${btnName}</button>
             <button class="modal-btn close-modal-btn" data-action="btn-close">Close</button>
         </div>
     </div>
@@ -56,7 +57,31 @@ function createModal(content, title, btnName){
 
 document.addEventListener('click', function (e){
     if(e.target.dataset.action === 'btn-close'){
-        document.querySelector('.modal-window').remove();
+        document.querySelector('.modal-window').classList.add('hidden-modal');
+        setTimeout(()=>{
+            document.querySelector('.modal-window').remove();
+        },500)
+    }else if(e.target.dataset.action ==='add-new-pass'){
+
+        const pass = {}
+        const nameSource = document.getElementById('input-name-source')
+        const login = document.getElementById('input-login-source')
+        const password = document.getElementById('input-pass-source')
+
+        if(isValid(nameSource.value) && isValid(login.value) && isValid(password.value)){
+            pass.nameSource = nameSource.value;
+            pass.login = login.value;
+            pass.password = password.value;
+            pass.date = new Date().toJSON()
+
+            Password.create(pass)
+                .then(()=>{
+                    clearInput(nameSource, login, password)
+                    console.log('success')
+            })
+        }
+
     }
+
 })
 

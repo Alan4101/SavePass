@@ -17,3 +17,10 @@
     @content;
   }
 }
+@mixin max_425 {
+  @media (max-width: 425px){
+    @content
+  }
+}
+
+

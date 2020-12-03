@@ -1,6 +1,7 @@
 export class Password{
+    //отримання всі записів з бази
     static getAll(){
-        return fetch('http://localhost:3000/data.json',{
+        return fetch('https://passwordmaster-f995d-default-rtdb.firebaseio.com/password.json',{
             method: 'GET',
             cache: 'no-cache',
             mode: 'cors',
@@ -11,7 +12,18 @@ export class Password{
             .then(res=> res.json())
             .then(Password.renderToHtml)
     }
-//відображення на даних з сервера
+    //створення нового запису в базу
+    static create (data){
+        return fetch('https://passwordmaster-f995d-default-rtdb.firebaseio.com/password.json',{
+            method: "POST",
+            mode: 'cors',
+            body: JSON.stringify(data),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }).then( res => res.json() )
+    }
+    //відображення на даних з сервера
     static renderToHtml(data){
         for(let item in data){
             document.getElementById('main-wrapper').insertAdjacentHTML('afterbegin', toCard(data[item]))
@@ -33,8 +45,8 @@ function toCard(data){
                             <p class="pass-field">${data.password}</p>
                         </div>
                         <div class="item-footer">
-                            <p class="date-field" title="Date of creation">${data.date}</p>
-                            <p class="time-field" title="Time of creation">${data.time}</p>
+                            <p class="date-field" title="Date of creation">${new Date(data.date).toLocaleDateString()}</p>
+                            <p class="time-field" title="Time of creation">${new Date(data.date).toLocaleTimeString()}</p>
                             <div class="item-btn">
                                 <button class="btn-edit-passcard btn-card" title="Edit"><i class="fas fa-pen"></i></button>
                                 <button class="btn-delete-passcard btn-card" title="Delete"><i class="fas fa-trash"></i></button>
