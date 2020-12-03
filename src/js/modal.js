@@ -1,7 +1,7 @@
 import {clearInput, isValid} from "./utils";
 import {Password} from "./password";
-
-export function openModalAddNewCard(title = 'Modal'){
+/*creating modal window for adding new record*/
+export function createModalAddNewCard(title = 'Modal'){
 
     const content = `<form id="" action="" name="form-add-source" class="form-add-item">
                 <div class="modal-input">
@@ -19,8 +19,8 @@ export function openModalAddNewCard(title = 'Modal'){
             </form>`
     return createModal(content,title,'Add', 'add-new-pass')
 }
-
-export function openModalAuth(title='Modal'){
+//modal window for auth
+export function createModalAuth(title='Modal'){
     const content = `<form id="" action="" name="form-auth" class="form-auth">
                 <div class="modal-input">
                     <label for="input-login-auth">Login</label>
@@ -77,7 +77,6 @@ document.addEventListener('click', function (e){
             Password.create(pass)
                 .then(()=>{
                     clearInput(nameSource, login, password)
-                    console.log('success')
             })
         }
 

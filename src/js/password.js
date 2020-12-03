@@ -9,8 +9,10 @@ export class Password{
                 'Content-Type': 'application/json'
             }
         })
-            .then(res=> res.json())
+            .then( res => res.json())
             .then(Password.renderToHtml)
+
+
     }
     //створення нового запису в базу
     static create (data){
@@ -26,28 +28,33 @@ export class Password{
     //відображення на даних з сервера
     static renderToHtml(data){
         for(let item in data){
-            document.getElementById('main-wrapper').insertAdjacentHTML('afterbegin', toCard(data[item]))
+            document.getElementById('main-wrapper').insertAdjacentHTML('afterbegin', toCard(data[item], item))
         }
     }
 
 }
-
-function toCard(data){
+//лок для відображення картки з паролями та іншими даними
+function toCard(data, key){
     return `<div class="col-md-4 col-xs-12">
-                    <div class="main-wrapper__item">
+                    <div class="main-wrapper__item" data-name="${key}">
                         <div class="item-header">
                             <h3 class="title-passcard">${data.nameSource}</h3>
                         </div>
                         <div class="item-body">
-                            <label>Login:</label>
-                            <p class="login-field">${data.login}</p>
-                            <label>Password:</label>
-                            <p class="pass-field">${data.password}</p>
+                            <div class="item-panel">
+                                <label>Login:</label>
+                                <p class="login-field">${data.login}</p>
+                            </div>
+                            <div class="item-panel">
+                                <label>Password:</label>
+                                <p class="pass-field">${data.password}</p>
+                            </div>
                         </div>
+                        <hr>
                         <div class="item-footer">
                             <p class="date-field" title="Date of creation">${new Date(data.date).toLocaleDateString()}</p>
-                            <p class="time-field" title="Time of creation">${new Date(data.date).toLocaleTimeString()}</p>
-                            <div class="item-btn">
+                            <p class="time-field" title="Time of creation">${new Date(data.date).toLocaleTimeString().slice(0,-3)}</p>
+                            <div class="item-btn" data-name="${key}">
                                 <button class="btn-edit-passcard btn-card" title="Edit"><i class="fas fa-pen"></i></button>
                                 <button class="btn-delete-passcard btn-card" title="Delete"><i class="fas fa-trash"></i></button>
                             </div>
