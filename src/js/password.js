@@ -55,8 +55,8 @@ function toCard(data, key){
                             <p class="date-field" title="Date of creation">${new Date(data.date).toLocaleDateString()}</p>
                             <p class="time-field" title="Time of creation">${new Date(data.date).toLocaleTimeString().slice(0,-3)}</p>
                             <div class="item-btn" data-name="${key}">
-                                <button class="btn-edit-passcard btn-card" title="Edit"><i class="fas fa-pen"></i></button>
-                                <button class="btn-delete-passcard btn-card" title="Delete"><i class="fas fa-trash"></i></button>
+                                <button class="btn-edit-passcard btn-card fas fa-pen" title="Edit" data-button="edit-card"></button>
+                                <button class="btn-delete-passcard btn-card fas fa-trash" title="Delete" data-button="delete-card"></button>
                             </div>
                         </div>
                     </div>

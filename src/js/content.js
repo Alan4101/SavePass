@@ -1,11 +1,12 @@
 import { createModalAddNewCard, createModalAuth} from "./modal";
+import {Password} from "./password";
 
 const subNav = document.getElementById('sub-nav')
 const controlNav = document.getElementById('control-nav')
 const mainContainer = document.querySelector('.container-col')
 const addNewCardBtn = document.getElementById('add-new-card')
 const accountBtn = document.getElementById('login-account')
-const tem = documen.querySelector
+const containerForPasswordCard = document.getElementById('main-wrapper')
 //handler for 'burger' button
 function toggleNavHandler(){
     // debugger
@@ -48,9 +49,26 @@ function animationModal(){
         document.querySelector('.modal-wrapper').classList.remove('hidden-modal')
     },100)
 }
+//TODO: потрібно відкривати вибрану картку та виконувати дії згідно обраної кнопки редагувати | видаляти
+//handler for processing click edit | delete in the card-password
+function editPasswordCard(e){
+    if(e.target.dataset.button){
+        const nameCard = e.target.parentNode.dataset.name
 
+        if(e.target.dataset.button ==='edit-card'){
+
+            console.log(nameCard)
+        }else{
+            console.log(nameCard)
+
+        }
+    }
+
+}
 
 document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
 controlNav.addEventListener('click', toggleNavHandler)
 addNewCardBtn.addEventListener('click',renderAddCardModal)
 accountBtn.addEventListener('click', renderAuthForm)
+containerForPasswordCard.addEventListener('click',editPasswordCard)
+//TODO: потрібно додати прелоадер поки контент завантажується з серевера https://prog-blog.ru/translations/fake-it-til-you-make-it-css/

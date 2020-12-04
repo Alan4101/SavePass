@@ -219,6 +219,12 @@ body{
     }
     .item-btn{
       text-align: right;
+      .btn-edit-passcard{
+        z-index: 9;
+        i{
+
+        }
+      }
       .btn-card{
         opacity: 0.5;
         &:hover{
