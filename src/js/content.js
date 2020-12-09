@@ -69,6 +69,6 @@ function editPasswordCard(e){
 document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
 controlNav.addEventListener('click', toggleNavHandler)
 addNewCardBtn.addEventListener('click',renderAddCardModal)
-accountBtn.addEventListener('click', renderAuthForm)
+// accountBtn.addEventListener('click', renderAuthForm)
 containerForPasswordCard.addEventListener('click',editPasswordCard)
 //TODO: потрібно додати прелоадер поки контент завантажується з серевера https://prog-blog.ru/translations/fake-it-til-you-make-it-css/

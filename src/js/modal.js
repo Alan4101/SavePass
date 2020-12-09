@@ -10,11 +10,11 @@ export function createModalAddNewCard(title = 'Modal'){
                 </div>
                 <div class="modal-input">
                     <label for="input-login-source">Login</label>
-                    <input id="input-login-source" class="inp-source" type="text" required>
+                    <input id="input-login-source" class="inp-source" type="text" required autocomplete="on">
                 </div>
                 <div class="modal-input">
                     <label for="input-pass-source">Password</label>
-                    <input id="input-pass-source" class="inp-source" type="password" required>
+                    <input id="input-pass-source" class="inp-source" type="password" required autocomplete="on">
                 </div>
             </form>`
     return createModal(content,title,'Add', 'add-new-pass')
@@ -24,11 +24,11 @@ export function createModalAuth(title='Modal'){
     const content = `<form id="" action="" name="form-auth" class="form-auth">
                 <div class="modal-input">
                     <label for="input-login-auth">Login</label>
-                    <input id="input-login-auth" class="inp-source" type="text" required>
+                    <input id="input-login-auth" class="inp-source" type="text" required autocomplete="on">
                 </div>
                 <div class="modal-input">
                     <label for="input-pass-auth">Password</label>
-                    <input id="input-pass-auth" class="inp-source" type="password" minlength="8" required>
+                    <input id="input-pass-auth" class="inp-source" type="password" minlength="8" required autocomplete="on">
                 </div>
             </form>`
 
@@ -67,6 +67,7 @@ document.addEventListener('click', function (e){
         const nameSource = document.getElementById('input-name-source')
         const login = document.getElementById('input-login-source')
         const password = document.getElementById('input-pass-source')
+        const wrapperCard = document.getElementById('main-wrapper')
 
         if(isValid(nameSource.value) && isValid(login.value) && isValid(password.value)){
             pass.nameSource = nameSource.value;
@@ -77,6 +78,10 @@ document.addEventListener('click', function (e){
             Password.create(pass)
                 .then(()=>{
                     clearInput(nameSource, login, password)
+            })
+            Password.getAll().then( res=>{
+                // wrapperCard.remove()
+                Password.renderToHtml(res)
             })
         }
 

@@ -8,17 +8,16 @@ body, p{
   padding: 0;
   }
 body{
-  background: rgb(0,0,0);
-  background: linear-gradient(65deg, rgba(0,0,0,1) 0%, rgba(38,10,10,1) 0%, rgba(164,103,103,1) 25%, rgba(222,148,148,1) 49%, rgba(246,246,246,0.938813025210084) 100%);
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 /*main-header*/
 .main-header{
   width:calc(100% - 60px);
   background: #000;
-  background: $modal-color;
-  //background: #d32f2f;
+  background: $head-color;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0.5em 1.4em;
   transform: translateX(60px);
@@ -28,14 +27,21 @@ body{
     color: #ffffff;
 
     span{
-      font-weight: bold;
       font-size: 24pt;
-      font-family: $font-heads;
-      //margin-left: 50px;
     }
     .small-logo{
       display: none;
     }
+    .large-logo,.small-logo{
+      font-family: $head-font;
+      span:nth-child(1){
+        font-weight: 700;
+      }
+      span:last-child{
+        font-weight: 300;
+      }
+    }
+
     @include max_768{
       .large-logo{
         display: none;
@@ -47,40 +53,14 @@ body{
     }
   }
 
-  &__search-records-form{
-    position: relative;
 
-    .search-record-input{
-      width: 500px;
-      background: rgba(66, 66, 66, .8);
-      color: #fff;
-      outline: none;
-      border-radius: 15px;
-      border: 2px solid rgba(66, 66, 66, 1);
-      padding: .2em 1em;
-      transition: border .1ms;
-
-      @include max_1024{
-          width: 100%;
-
-      }
-    }
-
-    .search-record-btn{
-      border: 0;
-      background: transparent;
-      outline: none;
-      position: absolute;
-      right: 5px;
-      top: 3px;
-      font-size: 18px;
-    }
-  }
 
   &__account-info{
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: absolute;
+    right: 1em;
     .account-info__picture{
       width: 40px;
       height: 40px;
@@ -92,6 +72,9 @@ body{
       text-align: center;
       font-size: 20px;
       margin: 0 .5em;
+      img{
+        width: 35px;
+      }
     }
     .account-info__login{
       @include max_1024{
@@ -102,19 +85,48 @@ body{
   }
 }
 
-.main-header__search-records-form:hover .search-record-input, .search-record-input:active, .search-record-input:focus{
-  border: 2px solid #000;
-  transition: all .1ms;
-}
-
-.main-header__search-records-form:hover .search-record-btn, .search-record-btn:focus, .search-record-btn:active{
-  outline: none;
-  color: #ccc;
-  transition: all .1ms;
-  cursor: pointer;
-}
+//.main-header__search-records-form:hover .search-record-input, .search-record-input:active, .search-record-input:focus{
+//  border: 2px solid #000;
+//  transition: all .1ms;
+//}
+//
+//.main-header__search-records-form:hover .search-record-btn, .search-record-btn:focus, .search-record-btn:active{
+//  outline: none;
+//  color: #ccc;
+//  transition: all .1ms;
+//  cursor: pointer;
+//}
 
 /*main section*/
+.search-records-form{
+  width: 100%;
+
+  .search-record-input{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: .5em .5em .5em 2.1em;
+    background: #D2BEF5;
+    outline:none;
+            //#664996;
+
+    font-size: 20px;
+    color: #9377C5;
+
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .search-record-btn{
+    position: absolute;
+    top: 5px;
+    left: 25px;
+    background: transparent;
+    border: none;
+    color: #9377C5;
+    font-size: 24px;
+    outline: none;
+  }
+}
+
 /*sub-navigation*/
 .sub-nav{
   background: rgba(0, 0,0, .8);
@@ -176,16 +188,28 @@ body{
 .main-wrapper{
 
   &__item{
-    box-shadow: 0px 2px 10px 0px #3c0e0e;
+    box-shadow: 0 1px 5px -1px #a2a2a2;
     margin: 1em 0.1em;
-    //padding: 0.5em 0.1em;
     background: #ffffff;
+    border-radius: 5px;
+
     .item-header{
-      background: $modal-color;
+      //background: $modal-color;
 
       .title-passcard{
+        position: relative;
         padding: 0.5em;
-        color: #ffffff;
+        color: #626262;
+        overflow: hidden;
+
+        //&:empty{
+        //  width: 100%;
+        //  height: 61px;
+        //  background: rgb(0,0,0);
+        //  background: linear-gradient(65deg, rgba(0,0,0,1) 0%, rgba(45,45,45,1) 0%, rgba(92,81,81,1) 25%, rgba(162,155,155,1) 49%, rgba(247,247,247,1) 100%);
+        //  transform: translateX(-100%);
+        //  animation: loading 1.5s infinite;
+        //}
       }
     }
     .item-header, .item-body{
@@ -195,11 +219,12 @@ body{
     .item-body,
     .item-footer{
       display: flex;
-      justify-content: space-around;
+
     }
     .item-body{
-      margin: 1em 0;
-      flex-direction: row;
+      justify-content: space-around;
+      flex-direction: column;
+      padding: 0 1em;
       .item-panel{
 
         p{
@@ -213,26 +238,32 @@ body{
       }
     }
     .item-footer{
+      justify-content: space-between;
       flex-direction: row;
       font-style: italic;
       color: #929292;
+      padding: .5em 1em;
     }
     .item-btn{
       text-align: right;
+
       .btn-edit-passcard{
         z-index: 9;
-        i{
+        background-image: url("../img/edit.svg");
+      }
 
-        }
+      .btn-delete-passcard{
+        background-image: url('../img/delete.svg');
       }
       .btn-card{
         opacity: 0.5;
+        padding: 0 1em;
+
         &:hover{
-          //color: #c62828;
           color: #150c0c;
           transform: scale(1.2);
           transition: all .2ms;
-           opacity: 1;
+          opacity: 1;
         }
       }
     }
@@ -241,14 +272,16 @@ body{
 }
 
 .wrapper{
-  margin: 1rem 0 ;
+  margin-top: 2em;
 }
 
 .btn-card,.btn-panel{
   border: 1px solid transparent;
   outline: none;
-  border-radius: 50%;
-  background: transparent;
+  background-size: 100%;
+  width: 22px;
+  height: 22px;
+  background: transparent no-repeat center center;
 
   &:active, &:focus{
     outline: none;
@@ -272,4 +305,13 @@ body{
   opacity: 0;
   visibility: hidden;
   transition: all .55s;
+}
+
+// content preloader
+
+
+@keyframes loading {
+  100%{
+    transform: translatex(100%);
+  }
 }

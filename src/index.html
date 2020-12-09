@@ -13,24 +13,15 @@
 <!--header-->
 <header class="main-header">
     <div class="main-header__logo">
-        <span class="large-logo">Master Password</span>
-        <span class="small-logo">MP</span>
-    </div>
-    <div class="main-header__search">
-        <form id="search-records-form" class="main-header__search-records-form">
-            <input class="search-record-input" name="search-records"  type="search" maxlength="70">
-            <button class="search-record-btn"
-                    name="search-btn"
-                    type="submit"
-                    title="Search"><i class="fas fa-search"></i></button>
-        </form>
+        <span class="large-logo"><span>Master</span><span>Password</span></span>
+        <span class="small-logo"><span>M</span><span>P</span></span>
     </div>
     <div class="main-header__account-info">
             <div class="account-info__picture" title="Account">
-                <i class="fas fa-user-alt"></i>
-<!--                <img id="picture-account"  src="" alt="">-->
+<!--                <i class="fas fa-user-alt"></i>-->
+                <img id="picture-account"  src="https://i.work.ua/sent_photo/1/1/6/1167f60ed365c2e4e03047ae78ad8697.jpg" alt="">
             </div>
-        <p id="login-account" class="account-info__login" title="Name">Andrew</p>
+<!--        <p id="login-account" class="account-info__login" title="Name">Andrew</p>-->
     </div>
 </header>
 
@@ -47,73 +38,34 @@
                 <button id="add-new-card" class="btn-panel add-new-card" title="Add new card"><i class="fas fa-plus"></i></button>
             </div>
         </aside>
-        <main class="container container-col">
-            <div id="main-wrapper" class="row main-wrapper wrapper">
 
-                <div class="col-md-4 col-xs-12">
-                    <div class="main-wrapper__item">
-                        <div class="item-header">
-                            <h3 class="title-passcard">Telegram</h3>
+        <section class="container container-col">
+            <div class="row wrapper">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form id="search-records-form" class="search-records-form">
+
+                                <input class="search-record-input" name="search-records"  type="search" maxlength="60" placeholder="Search">
+                                <button class="search-record-btn"
+                                        name="search-btn"
+                                        type="submit"
+                                        title="Search"><i class="fas fa-search"></i></button>
+                            </form>
                         </div>
-                        <div class="item-body">
-                            <label>Login:</label>
-                            <p class="login-field">login_login</p>
-                            <label>Password:</label>
-                            <p class="pass-field">QWERTYU</p>
-                        </div>
-                        <div class="item-footer">
-                            <p class="date-field" title="Date of creation">22.11.20</p>
-                            <p class="time-field" title="Time of creation">19:05</p>
-                            <div class="item-btn">
-                                <button class="btn-edit-passcard btn-card" title="Edit"><i class="fas fa-pen"></i></button>
-                                <button class="btn-delete-passcard btn-card" title="Delete"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                <div class="col-md-4 col-xs-12">
-                    <div class="main-wrapper__item">
-                        <div class="item-header">
-                            <h3 class="title-passcard">Telegram</h3>
-                        </div>
-                        <div class="item-body">
-                            <label>Login</label>
-                            <p class="login-field">login_login</p>
-                            <label>Password</label>
-                            <p class="pass-field">QWERTYU</p>
-                        </div>
-                        <div class="item-footer">
-                            <p class="date-field">22.11.20</p>
-                            <p class="time-field">19:05</p>
-                            <div class="item-btn">
-                                <button class="btn-edit-passcard btn-card fas fa-pen"></button>
-                                <button class="btn-delete-passcard btn-card"><i class="fas fa-trash"></i></button>
-                            </div>
+                        <div class="col-md-4">
+                            <form action="" class="filter-records-form">
+
+                                <input type="text">
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-12">
-                    <div class="main-wrapper__item">
-                    <div class="item-header">
-                        <h3 class="title-passcard">Telegram</h3>
-                    </div>
-                    <div class="item-body">
-                        <label>Login</label>
-                        <p class="login-field">login_login</p>
-                        <label>Password</label>
-                        <p class="pass-field">QWERTYU</p>
-                    </div>
-                    <div class="item-footer">
-                        <p class="date-field">22.11.20</p>
-                        <p class="time-field">19:05</p>
-                        <div class="item-btn">
-                            <button class="btn-edit-passcard btn-card"><i class="fas fa-pen"></i></button>
-                            <button class="btn-delete-passcard btn-card"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                </div></div>
+                <div class="col-md-12">
+                    <div id="main-wrapper" class="row main-wrapper wrapper"></div>
+                </div>
             </div>
-        </main>
+        </section>
     </div>
 </div>
 
@@ -123,3 +75,4 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+
