@@ -1,6 +1,6 @@
 import {createModalAddNewCard, createModalAuth, editPasswordCardModal, message} from "./modal";
 import {Password} from "./password";
-import {clearInput, isValid} from "~/js/utils";
+import {clearInput, isValid} from "./utils";
 import firebase from "firebase";
 
 const subNav = document.getElementById('sub-nav')
@@ -52,6 +52,7 @@ function animationModal(){
         document.querySelector('.modal-wrapper').classList.remove('hidden-modal')
     },100)
 }
+
 //handler for processing click edit | delete in the card-password
 function editPasswordCard(e){
     if(e.target.dataset.button){
@@ -69,6 +70,34 @@ function editPasswordCard(e){
                 message('success','Success', 'The card is successfully deleted!')
         }
     }
+}
+
+//лок для відображення картки з паролями та іншими даними
+export function toCard(data, key= null){
+    return `<div class="col-md-4 col-xs-12 server-content">
+                    <div class="main-wrapper__item" data-name="${key}">
+                        <div class="item-header">
+                            <h3 class="title-passcard">${data.nameSource}</h3>
+                        </div>
+                        <div class="item-body">
+                            <div class="item-panel">
+                                <label>Login:</label>
+                                <p class="login-field">${data.login}</p>
+                            </div>
+                            <div class="item-panel">
+                                <label>Password:</label>
+                                <p class="pass-field">${data.password}</p>
+                            </div>
+                        </div>
+                        <div class="item-footer">
+                            <p class="date-field" title="Date of creation">${new Date(data.date).toLocaleDateString()}</p>
+                            <div class="item-btn" data-name="${key}">
+                                <button class="btn-edit-passcard btn-card" title="Edit" data-button="edit-card"></button>
+                                <button class="btn-delete-passcard btn-card" title="Delete" data-button="delete-card"></button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>`
 }
 
 document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
@@ -99,12 +128,28 @@ document.addEventListener('click', function (e){
             passBody.password = password.value;
             passBody.date = new Date().toJSON()
 
-            wrapperCard.hidden = true
-            wrapperCard.textContent = ''
+            // wrapperCard.hidden = true
+            // wrapperCard.textContent = ''
+            const serverContent = document.querySelectorAll('.server-content')
+            for(let s of serverContent ){
+                // s.hidden = true
+                s.remove()
+            }
 
+            const temp = document.querySelectorAll(".temp")
+            for(let s of temp){
+                s.style.visibility = 'visible'
+            }
             Password.create(passBody)
                 .then(()=>{
-                    Password.getAll().then(()=> wrapperCard.hidden = false)
+                    Password.getAll().then((res)=>{
+
+                        Password.renderToHtml(res)
+                        for(let s of temp){
+                            s.style.visibility = 'hidden'
+                        }
+                        // wrapperCard.hidden = false
+                    })
                     clearInput(nameSource, login, password)
                 }).catch(err=>{
                     message('error', 'Error', 'Something wrong, try again!')
@@ -115,5 +160,5 @@ document.addEventListener('click', function (e){
     }
 
 })
-
+//TODO: https://github.com/zalog/placeholder-loading прелоадер макет
 //TODO: потрібно додати прелоадер поки контент завантажується з серевера https://prog-blog.ru/translations/fake-it-til-you-make-it-css/

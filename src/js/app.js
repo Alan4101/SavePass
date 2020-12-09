@@ -7,8 +7,9 @@
 * auth       - authorization file
 * */
 import '../style/index.scss'
-import firebase from "firebase";
 import './content.js'
+import  firebase  from "firebase";
+
 import { Password } from "./password";
 
 const firebaseConfig = {
@@ -21,10 +22,22 @@ const firebaseConfig = {
     appId: "1:515467520928:web:f34eebb94b4eb5879352c5",
     measurementId: "G-70BNHQJX12"
 };
+// const url = 'https://passwordmaster-f995d-default-rtdb.firebaseio.com/password.json'
 
 firebase.initializeApp( firebaseConfig )
 
-document.addEventListener("DOMContentLoaded", Password.getAll)
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+    Password.getAll()
+        .then( res=>{
+            for(let i of document.querySelectorAll('.temp')){
+               i.style.visibility = "hidden"
+            }
+            Password.renderToHtml(res)
+        })
+        .catch( err => console.log(err))
+})
 
 console.log('app.js')
 

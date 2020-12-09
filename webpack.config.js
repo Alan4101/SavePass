@@ -17,26 +17,22 @@ const PAGES = fs
 
 module.exports ={
     devtool: 'inline-source-map',
-    entry:  `${PATHS.src}/js/app.js`,
+    entry:  `./src/js/app.js`,
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: `${PATHS.assets}js/[name].[contenthash].js`,
-        publicPath: '/'
+        filename: `${PATHS.assets}js/[name].js`,
+        publicPath: ''
 
     },
     resolve: {
         alias: {
-            '~': PATHS.src,
-            // images: path.resolve(__dirname,'./src/img/')
+            images: path.resolve(__dirname,'./src/img/')
         }
     },
     plugins: [
 
-        // new HTMLPlugin({
-        //     template: "./src/index.html"
-        // }),
         new MiniCssExtractPlugin({
-            filename: `${PATHS.assets}css/[name].[contenthash].css`
+            filename: `${PATHS.assets}css/[name].css`
         }),
         new CopyWebpackPlugin({
             patterns: [
@@ -44,17 +40,17 @@ module.exports ={
                 {from: `${PATHS.src}/static`, to: '' }
             ]
         }),
-
-        new CleanWebpackPlugin(),
-
         ...PAGES.map(
             page =>
-            new HTMLPlugin({
-                template: `${PAGES_DIR}/${page}`,
-                filename: `./${page}`,
-                inject: true
-            })
+                new HTMLPlugin({
+                    template: `${PAGES_DIR}/${page}`,
+                    filename: `./${page}`,
+                    inject: true
+                })
         ),
+        new CleanWebpackPlugin(),
+
+
     ],
     module: {
         rules: [

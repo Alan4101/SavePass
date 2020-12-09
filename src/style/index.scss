@@ -108,7 +108,6 @@ body{
     padding: .5em .5em .5em 2.1em;
     background: #D2BEF5;
     outline:none;
-            //#664996;
 
     font-size: 20px;
     color: #9377C5;
@@ -134,7 +133,6 @@ body{
   height: 100vh;
   margin-top:-64px;
   z-index: 1;
-
 
   .editing-panel{
     //height: 100%;
@@ -194,24 +192,25 @@ body{
     border-radius: 5px;
 
     .item-header{
-      //background: $modal-color;
-
+      padding: .1em ;
       .title-passcard{
         position: relative;
         padding: 0.5em;
         color: #626262;
         overflow: hidden;
-
-        //&:empty{
-        //  width: 100%;
-        //  height: 61px;
-        //  background: rgb(0,0,0);
-        //  background: linear-gradient(65deg, rgba(0,0,0,1) 0%, rgba(45,45,45,1) 0%, rgba(92,81,81,1) 25%, rgba(162,155,155,1) 49%, rgba(247,247,247,1) 100%);
-        //  transform: translateX(-100%);
-        //  animation: loading 1.5s infinite;
-        //}
+        &:empty{
+          margin: .5em;
+          width: 90%;
+          height: 15px;
+          background: #eeeaf6;
+          box-shadow: 0 -280px 100px -120px #dbc6ee inset,
+          -320px 0 100px -120px #dccef5 inset,
+          -360px 0 100px -120px #d2c2de inset;
+          animation: loading 2s infinite;
+        }
       }
     }
+
     .item-header, .item-body{
       text-align: left;
     }
@@ -229,11 +228,35 @@ body{
 
         p{
           padding-bottom: .2em;
+          &:empty{
+            width: 65%;
+            margin: .2em;
+            height: 15px;
+
+            background: #eeeaf6;
+            box-shadow: 0 -280px 100px -120px #dbc6ee inset,
+            -320px 0 100px -120px #dccef5 inset,
+            -360px 0 100px -120px #d2c2de inset;
+            animation: loading 2s infinite;
+          }
+
         }
+
         label{
           font-style: italic;
           font-weight: bold;
           margin: 0;
+          &:empty{
+            width: 45%;
+            margin: .2em;
+            height: 12px;
+
+            background: #eeeaf6;
+            box-shadow: 0 -280px 100px -120px #dbc6ee inset,
+            -320px 0 100px -120px #dccef5 inset,
+            -360px 0 100px -120px #d2c2de inset;
+            animation: loading 2s infinite;
+          }
         }
       }
     }
@@ -243,21 +266,43 @@ body{
       font-style: italic;
       color: #929292;
       padding: .5em 1em;
+      .date-field{
+        &:empty{
+          width: 40%;
+          margin: .2em;
+          height: 12px ;
+
+          background: #eeeaf6;
+          box-shadow: 0 -280px 100px -120px #dbc6ee inset,
+          -320px 0 100px -120px #dccef5 inset,
+          -360px 0 100px -120px #d2c2de inset;
+          animation: loading 2s infinite;
+        }
+      }
     }
     .item-btn{
       text-align: right;
 
       .btn-edit-passcard{
         z-index: 9;
-        background-image: url("../img/edit.svg");
+        background-color: #cccccc ;
+        background-image: url(~images/edit.svg);
       }
 
       .btn-delete-passcard{
+        background-color: #cccccc;
         background-image: url('../img/delete.svg');
       }
       .btn-card{
         opacity: 0.5;
         padding: 0 1em;
+        &:empty{
+          background: #eeeaf6;
+          box-shadow: 0 -280px 100px -120px #dbc6ee inset,
+          -320px 0 100px -120px #dccef5 inset,
+          -360px 0 100px -120px #d2c2de inset;
+          animation: loading 2s infinite;
+        }
 
         &:hover{
           color: #150c0c;
@@ -309,9 +354,13 @@ body{
 
 // content preloader
 @keyframes loading {
-  100%{
-    transform: translatex(100%);
+  50%{
+    background: #f4effc;
+    box-shadow: -280px 0 100px -120px #e2c8fc inset,
+     -320px 0 100px -120px #f4d2fc inset,
+     -360px 0 100px -120px #cca2e0 inset;
   }
+
 }
 
 // message

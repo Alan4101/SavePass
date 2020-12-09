@@ -1,5 +1,8 @@
-import firebase from "firebase";
+// import firebase from "firebase";
+import {toCard} from "./content";
+
 export class Password{
+
     //отримання всі записів з бази
     static getAll(){
         return fetch('https://passwordmaster-f995d-default-rtdb.firebaseio.com/password.json',{
@@ -11,17 +14,17 @@ export class Password{
             }
         })
             .then( res => res.json())
-            .then(Password.renderToHtml)
+
 
 
     }
-    static getById(from, id){
-        return firebase.database().ref(`${from}/${id}`).once('value')
-            .then(snapshot => {
-                console.log(snapshot.val())
-                Password.renderToHtml(snapshot.val())
-            })
-    }
+    // static getById(from, id){
+    //     return firebase.database().ref(`${from}/${id}`).once('value')
+    //         .then(snapshot => {
+    //             console.log(snapshot.val())
+    //             Password.renderToHtml(snapshot.val())
+    //         })
+    // }
     //створення нового запису в базу
     static create (data){
         return fetch('https://passwordmaster-f995d-default-rtdb.firebaseio.com/password.json',{
@@ -40,31 +43,4 @@ export class Password{
         }
     }
 
-}
-//лок для відображення картки з паролями та іншими даними
-function toCard(data, key=null){
-    return `<div class="col-md-4 col-xs-12">
-                    <div class="main-wrapper__item" data-name="${key}">
-                        <div class="item-header">
-                            <h3 class="title-passcard">${data.nameSource}</h3>
-                        </div>
-                        <div class="item-body">
-                            <div class="item-panel">
-                                <label>Login:</label>
-                                <p class="login-field">${data.login}</p>
-                            </div>
-                            <div class="item-panel">
-                                <label>Password:</label>
-                                <p class="pass-field">${data.password}</p>
-                            </div>
-                        </div>
-                        <div class="item-footer">
-                            <p class="date-field" title="Date of creation">${new Date(data.date).toLocaleDateString()}</p>
-                            <div class="item-btn" data-name="${key}">
-                                <button class="btn-edit-passcard btn-card" title="Edit" data-button="edit-card"></button>
-                                <button class="btn-delete-passcard btn-card" title="Delete" data-button="delete-card"></button>
-                            </div>
-                        </div>
-                    </div>
-                    </div>`
 }
