@@ -1,3 +1,4 @@
+import firebase from "firebase";
 export class Password{
     //отримання всі записів з бази
     static getAll(){
@@ -13,6 +14,13 @@ export class Password{
             .then(Password.renderToHtml)
 
 
+    }
+    static getById(from, id){
+        return firebase.database().ref(`${from}/${id}`).once('value')
+            .then(snapshot => {
+                console.log(snapshot.val())
+                Password.renderToHtml(snapshot.val())
+            })
     }
     //створення нового запису в базу
     static create (data){
@@ -34,7 +42,7 @@ export class Password{
 
 }
 //лок для відображення картки з паролями та іншими даними
-function toCard(data, key){
+function toCard(data, key=null){
     return `<div class="col-md-4 col-xs-12">
                     <div class="main-wrapper__item" data-name="${key}">
                         <div class="item-header">

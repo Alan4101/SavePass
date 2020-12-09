@@ -1,5 +1,3 @@
-import {clearInput, isValid} from "./utils";
-import {Password} from "./password";
 /*creating modal window for adding new record*/
 export function createModalAddNewCard(title = 'Modal'){
 
@@ -34,6 +32,25 @@ export function createModalAuth(title='Modal'){
 
     return createModal(content, title, 'Sign in')
 }
+
+export function editPasswordCardModal(title, data){
+
+    const content = `<form id="" action="" name="form-edit-card" class="form-edit">
+                <div class="modal-input">
+                    <label for="input-pass-auth">Name source</label>
+                    <input id="input-pass-auth" class="inp-source" type="text" autocomplete="on" value="${data.password}">
+                </div>
+                <div class="modal-input">
+                    <label for="input-login-auth">Login</label>
+                    <input id="input-login-auth" class="inp-source" type="text" autocomplete="on" value="${data.login}">
+                </div>
+                <div class="modal-input">
+                    <label for="input-pass-auth">Password</label>
+                    <input id="input-pass-auth" class="inp-source" type="text" minlength="8" autocomplete="on" value="${data.password}">
+                </div>
+            </form>`
+    return createModal(content, title, 'Save', 'save-card')
+}
 /*create clear modal*/
 function createModal(content, title, btnName, btnAction){
     return  `<div class="modal-window ">
@@ -54,38 +71,31 @@ function createModal(content, title, btnName, btnAction){
     </div>
 </div>`
 }
-
-document.addEventListener('click', function (e){
-    if(e.target.dataset.action === 'btn-close'){
-        document.querySelector('.modal-window').classList.add('hidden-modal');
-        setTimeout(()=>{
-            document.querySelector('.modal-window').remove();
-        },500)
-    }else if(e.target.dataset.action ==='add-new-pass'){
-
-        const pass = {}
-        const nameSource = document.getElementById('input-name-source')
-        const login = document.getElementById('input-login-source')
-        const password = document.getElementById('input-pass-source')
-        const wrapperCard = document.getElementById('main-wrapper')
-
-        if(isValid(nameSource.value) && isValid(login.value) && isValid(password.value)){
-            pass.nameSource = nameSource.value;
-            pass.login = login.value;
-            pass.password = password.value;
-            pass.date = new Date().toJSON()
-
-            Password.create(pass)
-                .then(()=>{
-                    clearInput(nameSource, login, password)
-            })
-            Password.getAll().then( res=>{
-                // wrapperCard.remove()
-                Password.renderToHtml(res)
-            })
-        }
+/*Message*/
+export function message(type, messageHeader, message){
+    const messageConfig = {
+        success: 'far fa-check-circle',
+        warning: 'fas fa-exclamation-triangle',
+        error: 'fas fa-exclamation-circle'
 
     }
+    for(let t in messageConfig){
+        if (type === t){
+            const messageContent = `
+        <div class="message-container ${t}">
+            <div class="message-header">
+                <p>${messageHeader}</p>
+                <p><i class="${messageConfig[t]}"></i></p>
+            </div>
+            <div class="message-body">
+                <p>${message}</p>
+            </div>
+        </div>`
+            document.body.insertAdjacentHTML('beforeend', messageContent)
+        }
+    }
+    const elm = document.querySelector('.message-container')
 
-})
-
+    setTimeout(() => elm.classList.add('hide-element'),1000)
+    setTimeout(() => elm.remove(),1500)
+}

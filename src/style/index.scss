@@ -308,10 +308,46 @@ body{
 }
 
 // content preloader
-
-
 @keyframes loading {
   100%{
     transform: translatex(100%);
   }
+}
+
+// message
+.message-container{
+  position: absolute;
+  bottom: 2em;
+  right: 2em;
+  width: 200px;
+  height: 80px;
+  padding: 0.5em;
+  border-radius: 10px;
+  opacity: 1;
+
+  .message-header{
+    font-weight: bold;
+    font: $head-font;
+    display: flex;
+    justify-content: space-between;
+  }
+  .message-body{
+    font: $head-font;
+    font-weight: 200;
+
+  }
+}
+.success{
+  background: rgba(174, 243, 125, .6);
+}
+.error{
+  background: rgb(243, 125, 125);
+}
+.warning{
+  background: rgb(243, 200, 125);
+}
+.hide-element{
+  opacity: 0;
+  transition: opacity 1s linear;
+
 }

@@ -14,10 +14,7 @@ const PAGES_DIR = PATHS.src
 const PAGES = fs
     .readdirSync(PAGES_DIR)
     .filter(fileName => fileName.endsWith('.html'))
-// PAGES.map(page=>{
-//     console.log(`${}/${page}`)
-//
-// })
+
 module.exports ={
     devtool: 'inline-source-map',
     entry:  `${PATHS.src}/js/app.js`,

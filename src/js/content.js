@@ -1,5 +1,7 @@
-import { createModalAddNewCard, createModalAuth} from "./modal";
+import {createModalAddNewCard, createModalAuth, editPasswordCardModal, message} from "./modal";
 import {Password} from "./password";
+import {clearInput, isValid} from "~/js/utils";
+import firebase from "firebase";
 
 const subNav = document.getElementById('sub-nav')
 const controlNav = document.getElementById('control-nav')
@@ -7,6 +9,7 @@ const mainContainer = document.querySelector('.container-col')
 const addNewCardBtn = document.getElementById('add-new-card')
 const accountBtn = document.getElementById('login-account')
 const containerForPasswordCard = document.getElementById('main-wrapper')
+
 //handler for 'burger' button
 function toggleNavHandler(){
     // debugger
@@ -49,21 +52,23 @@ function animationModal(){
         document.querySelector('.modal-wrapper').classList.remove('hidden-modal')
     },100)
 }
-//TODO: потрібно відкривати вибрану картку та виконувати дії згідно обраної кнопки редагувати | видаляти
 //handler for processing click edit | delete in the card-password
 function editPasswordCard(e){
     if(e.target.dataset.button){
         const nameCard = e.target.parentNode.dataset.name
 
         if(e.target.dataset.button ==='edit-card'){
-
-            console.log(nameCard)
+            firebase.database().ref(`password/${nameCard}`).once('value')
+                .then( snapshot => {
+                    document.body.insertAdjacentHTML('beforeend', editPasswordCardModal('Edit', snapshot.val()))
+                    animationModal()
+                })
         }else{
-            console.log(nameCard)
-
+            firebase.database().ref(`password/${nameCard}`).remove()
+                .then( () => console.log('deleted'))
+                message('success','Success', 'The card is successfully deleted!')
         }
     }
-
 }
 
 document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
@@ -71,4 +76,44 @@ controlNav.addEventListener('click', toggleNavHandler)
 addNewCardBtn.addEventListener('click',renderAddCardModal)
 // accountBtn.addEventListener('click', renderAuthForm)
 containerForPasswordCard.addEventListener('click',editPasswordCard)
+
+document.addEventListener('click', function (e){
+
+    if(e.target.dataset.action === 'btn-close'){
+
+        document.querySelector('.modal-window').classList.add('hidden-modal');
+        setTimeout(()=>document.querySelector('.modal-window').remove(),500)
+
+    }else if(e.target.dataset.action ==='add-new-pass'){
+
+        const passBody = {}
+        const nameSource = document.getElementById('input-name-source')
+        const login = document.getElementById('input-login-source')
+        const password = document.getElementById('input-pass-source')
+        const wrapperCard = document.getElementById('main-wrapper')
+
+        if(isValid(nameSource.value) && isValid(login.value) && isValid(password.value)){
+
+            passBody.nameSource = nameSource.value;
+            passBody.login = login.value;
+            passBody.password = password.value;
+            passBody.date = new Date().toJSON()
+
+            wrapperCard.hidden = true
+            wrapperCard.textContent = ''
+
+            Password.create(passBody)
+                .then(()=>{
+                    Password.getAll().then(()=> wrapperCard.hidden = false)
+                    clearInput(nameSource, login, password)
+                }).catch(err=>{
+                    message('error', 'Error', 'Something wrong, try again!')
+            })
+
+        }
+
+    }
+
+})
+
 //TODO: потрібно додати прелоадер поки контент завантажується з серевера https://prog-blog.ru/translations/fake-it-til-you-make-it-css/
