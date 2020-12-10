@@ -44,10 +44,11 @@
       }
     }
     .modal-header{
-      background: rgb(0,0,0);
-      background: $modal-color;
+      background: rgb(255, 255, 255);
+      //background: $modal-color;
       .modal-title{
-        color: #fff;
+        color: #7258A1;
+        font-weight: bold;
       }
       .modal-btn{
         background: transparent;
@@ -60,14 +61,17 @@
     }
     .modal-footer{
       .close-modal-btn{
+        i{
+          color: #543f77;
+        }
       }
     }
   }
   .modal-btn{
-    outline-color: #c62828;
+    outline-color: #543f77;
     border: none;
     padding: 0.1em .5em;
-    background: rgb(0,0,0);
+    background: #7258A1;
     color: #fff;
     border-radius: 5px;
   }
@@ -79,9 +83,11 @@
 
   label{
     font-weight: bold;
+    color: #666666;
+    margin: 0;
   }
   .inp-source:active ~label{
-    color: #d32f2f;
+    color: #543f77;
     font-size: 20px;
   }
   .inp-source{
@@ -89,6 +95,7 @@
     border: none;
     border-bottom: 2px solid #ccc;
     outline: none;
+    margin-bottom: .5em;
 
     &:focus{
       border-bottom: 2px solid #535353;
