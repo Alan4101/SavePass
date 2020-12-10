@@ -52,9 +52,6 @@ body{
 
     }
   }
-
-
-
   &__account-info{
     display: flex;
     flex-direction: row;
@@ -84,19 +81,6 @@ body{
 
   }
 }
-
-//.main-header__search-records-form:hover .search-record-input, .search-record-input:active, .search-record-input:focus{
-//  border: 2px solid #000;
-//  transition: all .1ms;
-//}
-//
-//.main-header__search-records-form:hover .search-record-btn, .search-record-btn:focus, .search-record-btn:active{
-//  outline: none;
-//  color: #ccc;
-//  transition: all .1ms;
-//  cursor: pointer;
-//}
-
 /*main section*/
 .search-records-form{
   width: 100%;
@@ -108,10 +92,8 @@ body{
     padding: .5em .5em .5em 2.1em;
     background: #D2BEF5;
     outline:none;
-
     font-size: 20px;
     color: #9377C5;
-
     font-family: 'Noto Sans JP', sans-serif;
   }
   .search-record-btn{
@@ -135,7 +117,6 @@ body{
   z-index: 1;
 
   .editing-panel{
-    //height: 100%;
     padding:1em 0.5em;
     margin-top: 64px;
     .add-new-card{
@@ -202,11 +183,7 @@ body{
           margin: .5em;
           width: 90%;
           height: 15px;
-          background: #eeeaf6;
-          box-shadow: 0 -280px 100px -120px #dbc6ee inset,
-          -320px 0 100px -120px #dccef5 inset,
-          -360px 0 100px -120px #d2c2de inset;
-          animation: loading 2s infinite;
+          @extend %skeleton-loading
         }
       }
     }
@@ -233,11 +210,7 @@ body{
             margin: .2em;
             height: 15px;
 
-            background: #eeeaf6;
-            box-shadow: 0 -280px 100px -120px #dbc6ee inset,
-            -320px 0 100px -120px #dccef5 inset,
-            -360px 0 100px -120px #d2c2de inset;
-            animation: loading 2s infinite;
+            @extend %skeleton-loading
           }
 
         }
@@ -251,11 +224,7 @@ body{
             margin: .2em;
             height: 12px;
 
-            background: #eeeaf6;
-            box-shadow: 0 -280px 100px -120px #dbc6ee inset,
-            -320px 0 100px -120px #dccef5 inset,
-            -360px 0 100px -120px #d2c2de inset;
-            animation: loading 2s infinite;
+            @extend %skeleton-loading
           }
         }
       }
@@ -272,11 +241,7 @@ body{
           margin: .2em;
           height: 12px ;
 
-          background: #eeeaf6;
-          box-shadow: 0 -280px 100px -120px #dbc6ee inset,
-          -320px 0 100px -120px #dccef5 inset,
-          -360px 0 100px -120px #d2c2de inset;
-          animation: loading 2s infinite;
+          @extend %skeleton-loading
         }
       }
     }
@@ -285,23 +250,20 @@ body{
 
       .btn-edit-passcard{
         z-index: 9;
-        background-color: #cccccc ;
-        background-image: url(~images/edit.svg);
+        //background-color: #cccccc ;
+        //background-image: url(~images/edit.svg);
       }
 
       .btn-delete-passcard{
-        background-color: #cccccc;
-        background-image: url('../img/delete.svg');
+        //background-color: #cccccc;
+        //background-image: url('../img/delete.svg');
       }
       .btn-card{
         opacity: 0.5;
         padding: 0 1em;
+
         &:empty{
-          background: #eeeaf6;
-          box-shadow: 0 -280px 100px -120px #dbc6ee inset,
-          -320px 0 100px -120px #dccef5 inset,
-          -360px 0 100px -120px #d2c2de inset;
-          animation: loading 2s infinite;
+          @extend %skeleton-loading
         }
 
         &:hover{
@@ -353,6 +315,13 @@ body{
 }
 
 // content preloader
+%skeleton-loading{
+  background: #eeeaf6;
+  box-shadow: 0 -280px 100px -120px #dbc6ee inset,
+  -320px 0 100px -120px #dccef5 inset,
+  -360px 0 100px -120px #d2c2de inset;
+  animation: loading 2s infinite;
+}
 @keyframes loading {
   50%{
     background: #f4effc;

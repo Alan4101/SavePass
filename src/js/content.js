@@ -1,7 +1,10 @@
 import {createModalAddNewCard, createModalAuth, editPasswordCardModal, message} from "./modal";
 import {Password} from "./password";
 import {clearInput, isValid} from "./utils";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import 'firebase/database'
+import 'firebase/storage'
+// import 'firebase/auth';
 
 const subNav = document.getElementById('sub-nav')
 const controlNav = document.getElementById('control-nav')
@@ -56,7 +59,7 @@ function animationModal(){
 //handler for processing click edit | delete in the card-password
 function editPasswordCard(e){
     if(e.target.dataset.button){
-        const nameCard = e.target.parentNode.dataset.name
+        const nameCard = e.target.parentNode.parentNode.dataset.name
 
         if(e.target.dataset.button ==='edit-card'){
             firebase.database().ref(`password/${nameCard}`).once('value')
@@ -92,8 +95,8 @@ export function toCard(data, key= null){
                         <div class="item-footer">
                             <p class="date-field" title="Date of creation">${new Date(data.date).toLocaleDateString()}</p>
                             <div class="item-btn" data-name="${key}">
-                                <button class="btn-edit-passcard btn-card" title="Edit" data-button="edit-card"></button>
-                                <button class="btn-delete-passcard btn-card" title="Delete" data-button="delete-card"></button>
+                                <button class="btn-edit-passcard btn-card" title="Edit"><img src="assets/img/edit.svg" data-button="edit-card" alt=""></button>
+                                <button class="btn-delete-passcard btn-card" title="Delete"><img src="assets/img/delete.svg" data-button="delete-card" alt=""></button>
                             </div>
                         </div>
                     </div>
@@ -153,6 +156,7 @@ document.addEventListener('click', function (e){
                     clearInput(nameSource, login, password)
                 }).catch(err=>{
                     message('error', 'Error', 'Something wrong, try again!')
+                console.warn(err)
             })
 
         }
