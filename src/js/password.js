@@ -1,5 +1,4 @@
-// import firebase from "firebase/app";
-import {toCard} from "./content";
+import { renderCard } from "./content";
 
 export class Password{
 
@@ -14,9 +13,6 @@ export class Password{
             }
         })
             .then( res => res.json())
-
-
-
     }
 
     //створення нового запису в базу
@@ -33,7 +29,7 @@ export class Password{
     //відображення на даних з сервера
     static renderToHtml(data){
         for(let item in data){
-            document.getElementById('main-wrapper').insertAdjacentHTML('afterbegin', toCard(data[item], item))
+            document.getElementById('main-wrapper').insertAdjacentHTML('afterbegin', renderCard(data[item], item))
         }
     }
 

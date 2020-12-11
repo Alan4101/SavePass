@@ -1,10 +1,7 @@
-import {createModalAddNewCard, createModalAuth, editPasswordCardModal, message} from "./modal";
-import {Password} from "./password";
-import {clearInput, isValid} from "./utils";
-import firebase from "firebase/app";
-import 'firebase/database'
-import 'firebase/storage'
-// import 'firebase/auth';
+import { createModalAddNewCard, createModalAuth, editPasswordCardModal, closeModalWindow, message } from "./modal";
+import { Password } from "./password";
+import { clearInput, isValid } from "./utils";
+import { selectRecord, deleteRecord, updateRecord } from './firebase.operation'
 
 const subNav = document.getElementById('sub-nav')
 const controlNav = document.getElementById('control-nav')
@@ -38,8 +35,10 @@ function mediaQueryForSubPanel(){
         subNav.style.width = '0px'
     }
 }
+
+/*** operation with modal ***/
 //handler for rendering modal window for adding new data (pass, login, other)
-function renderAddCardModal(){
+function renderModalAddCard(){
     document.body.insertAdjacentHTML('beforeend', createModalAddNewCard('Create new item'))
     animationModal()
 }
@@ -49,34 +48,8 @@ function renderAuthForm(){
     this.disabled = true
     animationModal()
 }
-//handler for showing a modal window with animation (deleting class 'hidden-modal in all modal windows')
-function animationModal(){
-    setTimeout(()=>{
-        document.querySelector('.modal-wrapper').classList.remove('hidden-modal')
-    },100)
-}
-
-//handler for processing click edit | delete in the card-password
-function editPasswordCard(e){
-    if(e.target.dataset.button){
-        const nameCard = e.target.parentNode.parentNode.dataset.name
-
-        if(e.target.dataset.button ==='edit-card'){
-            firebase.database().ref(`password/${nameCard}`).once('value')
-                .then( snapshot => {
-                    document.body.insertAdjacentHTML('beforeend', editPasswordCardModal('Edit', snapshot.val()))
-                    animationModal()
-                })
-        }else{
-            firebase.database().ref(`password/${nameCard}`).remove()
-                .then( () => console.log('deleted'))
-                message('success','Success', 'The card is successfully deleted!')
-        }
-    }
-}
-
 //лок для відображення картки з паролями та іншими даними
-export function toCard(data, key= null){
+export function renderCard(data, key= null){
     return `<div class="col-md-4 col-xs-12 server-content">
                     <div class="main-wrapper__item" data-name="${key}">
                         <div class="item-header">
@@ -102,67 +75,145 @@ export function toCard(data, key= null){
                     </div>
                     </div>`
 }
+//handler for showing a modal window with animation (deleting class 'hidden-modal in all modal windows')
+function animationModal(){
+    setTimeout(()=>{
+        document.querySelector('.modal-wrapper').classList.remove('hidden-modal')
+    },100)
+}
+/***** end with modal ******/
 
-document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
-controlNav.addEventListener('click', toggleNavHandler)
-addNewCardBtn.addEventListener('click',renderAddCardModal)
-// accountBtn.addEventListener('click', renderAuthForm)
-containerForPasswordCard.addEventListener('click',editPasswordCard)
+/****** get data with card *****/
+//get all data with card edit
+function getFieldsFromEditCard(){
+    const data = { }
+    data.password = document.getElementById('input-pass-edit').value
+    data.login = document.getElementById('input-login-edit').value
+    data.nameSource = document.getElementById('input-source-edit').value
+    data.date = new Date().toJSON()
+    return data
+}
+function getFieldsFromAddCard(){
+    const passBody = {}
+    const nameSource = document.getElementById('input-name-source')
+    const login = document.getElementById('input-login-source')
+    const password = document.getElementById('input-pass-source')
+    return passBody
+}
+/****** *****/
 
-document.addEventListener('click', function (e){
+/****** edit operation ******/
+//handler for processing click edit | delete in the card-password
+function editOrDeleteCard(e){
+    const path = 'password'
+    if(e.target.dataset.button){
+        const nameCard = e.target.parentNode.parentNode.dataset.name
 
-    if(e.target.dataset.action === 'btn-close'){
+        if(e.target.dataset.button ==='edit-card'){
 
-        document.querySelector('.modal-window').classList.add('hidden-modal');
-        setTimeout(()=>document.querySelector('.modal-window').remove(),500)
-
-    }else if(e.target.dataset.action ==='add-new-pass'){
-
-        const passBody = {}
-        const nameSource = document.getElementById('input-name-source')
-        const login = document.getElementById('input-login-source')
-        const password = document.getElementById('input-pass-source')
-        const wrapperCard = document.getElementById('main-wrapper')
-
-        if(isValid(nameSource.value) && isValid(login.value) && isValid(password.value)){
-
-            passBody.nameSource = nameSource.value;
-            passBody.login = login.value;
-            passBody.password = password.value;
-            passBody.date = new Date().toJSON()
-
-            // wrapperCard.hidden = true
-            // wrapperCard.textContent = ''
-            const serverContent = document.querySelectorAll('.server-content')
-            for(let s of serverContent ){
-                // s.hidden = true
-                s.remove()
-            }
-
-            const temp = document.querySelectorAll(".temp")
-            for(let s of temp){
-                s.style.visibility = 'visible'
-            }
-            Password.create(passBody)
-                .then(()=>{
-                    Password.getAll().then((res)=>{
-
-                        Password.renderToHtml(res)
-                        for(let s of temp){
-                            s.style.visibility = 'hidden'
-                        }
-                        // wrapperCard.hidden = false
-                    })
-                    clearInput(nameSource, login, password)
-                }).catch(err=>{
-                    message('error', 'Error', 'Something wrong, try again!')
-                console.warn(err)
+            selectRecord(path, nameCard).then( snapshot => {
+                document.body.insertAdjacentHTML('beforeend', editPasswordCardModal('Edit', snapshot.val(), nameCard))
+                animationModal()
             })
+        }else{
+            animationDomLoad('start')
+            deleteRecord('password', nameCard)
+                .then( () => {
+                    Password.getAll()
+                        .then( (res) => {
+                            Password.renderToHtml(res)
+                            animationDomLoad()
+                        })
+                })
+    }
+}
+}
+// save changed data in database
+function saveDataCard(e){
+    if(e.target.dataset.id){
+        animationDomLoad(true)
+        updateRecord('password', e.target.dataset.id, getFieldsFromEditCard())
+            .then( () => {
+                Password.getAll()
+                    .then( (res) => {
+                        Password.renderToHtml(res)
+                        animationDomLoad()
+                    })
+            })
+            .catch(err => console.warn(err))
+    }
+}
+/****** end edit ****/
 
+function animationDomLoad(action){
+    const serverContent = document.querySelectorAll('.server-content')
+    const temp = document.querySelectorAll(".temp")
+    if(action){
+        for(let s of serverContent ){
+            s.remove()
+        }
+        for(let t of temp){
+            t.style.visibility = 'visible'
+        }
+    } else {
+        for (let t of temp) {
+            t.style.visibility = 'hidden'
+        }
+    }
+}
+
+/****add new record in db */
+function addNewRecord(e){
+    if(e.target.dataset.action ==='add-new-pass'){
+
+        const data = getFieldsFromAddCard()
+
+        if(isValid(data.nameSource.value) && isValid(data.login.value) && isValid(data.password.value)){
+
+            data.nameSource = data.nameSource.value;
+            data.login = data.login.value;
+            data.password = data.password.value;
+            data.date = new Date().toJSON()
+
+            animationDomLoad(true)
+
+            Password.create(data)
+                .then( () => {
+                    Password.getAll()
+                        .then( (res) => {
+                            Password.renderToHtml(res)
+                            animationDomLoad()
+                        })
+                    clearInput(data.nameSource, data.login, data.password)
+                })
+                .catch( err => {
+                    message('error', 'Error', 'Something wrong, try again!')
+                    console.warn(err)
+                })
         }
 
     }
+}
+/** end add new card**/
 
-})
+
+
+function init(e) {
+    saveDataCard(e)
+    closeModalWindow(e)
+    addNewRecord(e)
+}
+
+document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
+controlNav.addEventListener('click', toggleNavHandler)
+
+addNewCardBtn.addEventListener('click',renderModalAddCard)
+// accountBtn.addEventListener('click', renderAuthForm)
+containerForPasswordCard.addEventListener('click', editOrDeleteCard)
+
+document.addEventListener('click', init)
+// document.addEventListener('click', saveDataCard )
+// document.addEventListener('click', closeModalWindow)
+// document.addEventListener('click', addNewRecord)
+
 //TODO: https://github.com/zalog/placeholder-loading прелоадер макет
-//TODO: потрібно додати прелоадер поки контент завантажується з серевера https://prog-blog.ru/translations/fake-it-til-you-make-it-css/

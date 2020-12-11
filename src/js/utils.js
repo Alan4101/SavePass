@@ -6,9 +6,3 @@ export function clearInput(...input){
         i.value=''
     })
 }
-export function preloaderContent(){
-    let content = false
-    if(content){
-
-    }
-}
