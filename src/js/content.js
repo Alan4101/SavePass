@@ -86,12 +86,12 @@ function animationModal(){
 /****** get data with card *****/
 //get all data with card edit
 function getFieldsFromEditCard(){
-    const data = { }
-    data.password = document.getElementById('input-pass-edit').value
-    data.login = document.getElementById('input-login-edit').value
-    data.nameSource = document.getElementById('input-source-edit').value
-    data.date = new Date().toJSON()
-    return data
+    return {
+        password : document.getElementById('input-pass-edit').value,
+        login : document.getElementById('input-login-edit').value,
+        nameSource : document.getElementById('input-source-edit').value,
+        date : new Date().toJSON()
+    }
 }
 function getFieldsFromAddCard(){
     return {
@@ -119,6 +119,14 @@ function editOrDeleteCard(e){
             animationDomLoad('start')
             deleteRecord('password', nameCard)
                 .then( () => {
+                    // document.querySelectorAll('.sever-content').forEach(i=>{
+                    //     if(i.dataset.name === nameCard){
+                    //         i.remove()
+                    //     }
+                    // })
+                    // selectRecord('password').then((res)=>{
+                    //     console.log(res.val())
+                    // })
                     Password.getAll()
                         .then( (res) => {
                             Password.renderToHtml(res)
@@ -184,19 +192,18 @@ function addNewRecord(e){
                             Password.renderToHtml(res)
                             animationDomLoad()
                         })
-                    clearInput(data.nameSource, data.login, data.password)
+                    let data1 = getFieldsFromAddCard()
+                    clearInput(data1.nameSource, data1.login, data1.password)
                 })
                 .catch( err => {
                     message('error', 'Error', 'Something wrong, try again!')
-                    console.warn(err)
+                    console.error(err)
                 })
         }
 
     }
 }
 /** end add new card**/
-
-
 
 function init(e) {
     saveDataCard(e)
