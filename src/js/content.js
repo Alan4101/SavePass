@@ -94,11 +94,11 @@ function getFieldsFromEditCard(){
     return data
 }
 function getFieldsFromAddCard(){
-    const passBody = {}
-    const nameSource = document.getElementById('input-name-source')
-    const login = document.getElementById('input-login-source')
-    const password = document.getElementById('input-pass-source')
-    return passBody
+    return {
+        nameSource : document.getElementById('input-name-source'),
+        login : document.getElementById('input-login-source'),
+        password : document.getElementById('input-pass-source')
+    }
 }
 /****** *****/
 
