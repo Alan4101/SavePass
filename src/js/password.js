@@ -18,13 +18,7 @@ export class Password{
 
 
     }
-    // static getById(from, id){
-    //     return firebase.database().ref(`${from}/${id}`).once('value')
-    //         .then(snapshot => {
-    //             console.log(snapshot.val())
-    //             Password.renderToHtml(snapshot.val())
-    //         })
-    // }
+
     //створення нового запису в базу
     static create (data){
         return fetch('https://passwordmaster-f995d-default-rtdb.firebaseio.com/password.json',{
