@@ -46,7 +46,7 @@
                         <div class="col-md-8 col-sx-12 forms-item">
                             <form id="search-records-form" class="search-records-form">
 
-                                <input class="search-record-input" name="search-records"  type="search" maxlength="60" placeholder="Search">
+                                <input class="search-record-input" name="search-records"  type="search" maxlength="60" autofocus placeholder="Search">
                                 <button class="search-record-btn"
                                         name="search-btn"
                                         type="submit"
@@ -57,15 +57,15 @@
                             <form action="" class="filter-records-form">
                                 <div class="dropdown-filter">
                                     <img class="filter-sort-date-icon" src="assets/img/filter.svg" alt="">
-                                    <select name="maxOrMinDate" id="maxOrMinDate" class="select-sort-in-date">
+                                    <select name="maxOrMinDate" id="maxOrMinDate" class="select-sort-in-date" autofocus>
                                         <option value="" disabled selected>Date filter</option>
                                         <option value="max">New</option>
                                         <option value="min">Old</option>
                                     </select>
                                     <i class="arrow-down fas fa-chevron-down"></i>
                                 </div>
-                                <button id="changeCardOrList" class="card-or-list fas fa-th"></button>
-                                <button id="" class="filter-btn fas fa-palette"></button>
+                                <button id="changeCardOrList" class="card-or-list fas fa-th" autofocus></button>
+                                <button id="" class="filter-btn fas fa-palette" autofocus></button>
                             </form>
                         </div>
                     </div>
@@ -227,7 +227,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<!--<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>-->
+<!--<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>-->
+
 </body>
 </html>
 

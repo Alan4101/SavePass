@@ -1,6 +1,6 @@
 import { createModalAddNewCard, createModalAuth, editPasswordCardModal, closeModalWindow, message } from "./modal";
 import { Password } from "./password";
-import { clearInput, isValid } from "./utils";
+import {clearInput, copyToBuffer, isValid} from "./utils";
 import { selectRecord, deleteRecord, updateRecord } from './firebase.operation'
 
 const subNav = document.getElementById('sub-nav')
@@ -52,7 +52,7 @@ function renderAuthForm(){
 //лок для відображення картки з паролями та іншими даними
 export function renderCard(data, key= null){
     return `<div class="col-md-4 col-xs-12 server-content">
-                    <div class="main-wrapper__item" data-name="${key}">
+                    <div class="main-wrapper__item" data-name="${key}" autofocus>
                         <div class="item-header">
                             <h3 class="title-passcard">${data.nameSource}</h3>
                         </div>
@@ -64,13 +64,17 @@ export function renderCard(data, key= null){
                             <div class="item-panel">
                                 <label>Password:</label>
                                 <p class="pass-field">${data.password}</p>
+                                <button class="copy-password far fa-copy" autofocus></button>
+<!--                                <i class="far fa-copy"></i>-->
                             </div>
                         </div>
                         <div class="item-footer">
                             <p class="date-field" title="Date of creation">${new Date(data.date).toLocaleDateString()}</p>
                             <div class="item-btn" data-name="${key}">
-                                <button class="btn-edit-passcard btn-card" title="Edit"><img src="assets/img/edit.svg" data-button="edit-card" alt=""></button>
-                                <button class="btn-delete-passcard btn-card" title="Delete"><img src="assets/img/delete.svg" data-button="delete-card" alt=""></button>
+                                <button class="btn-edit-passcard btn-card" title="Edit" autofocus><img src="assets/img/edit.svg" data-button="edit-card" alt=""></button>
+                                <button class="btn-delete-passcard btn-card" title="Delete" autofocus>
+                                <img  src="assets/img/delete.svg" data-button="delete-card" alt="">
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -101,7 +105,7 @@ function getFieldsFromAddCard(){
         password : document.getElementById('input-pass-source')
     }
 }
-/****** *****/
+/****** end get data *****/
 
 /****** edit operation ******/
 //handler for processing click edit | delete in the card-password
@@ -207,23 +211,23 @@ function addNewRecord(e){
 }
 /** end add new card**/
 
-function init(e) {
-    saveDataCard(e)
-    closeModalWindowBtnClose(e)
-    addNewRecord(e)
+/**copy password to buffer**/
+function copyPasswordToBuffer(e){
+    if(e.target.classList.contains('copy-password')){
+        const text = e.target.previousSibling.previousSibling.textContent
+        copyToBuffer(text)
+            .then( () => {
+                message('success', 'Copied', '')
+            })
+            .catch(error => {
+                message('error', 'Error', error)
+                console.log(error)
+            })
+    }
 }
+/** end function copy **/
 
-document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
-controlNav.addEventListener('click', toggleNavHandler)
-
-addNewCardBtn.addEventListener('click',renderModalAddCard)
-// accountBtn.addEventListener('click', renderAuthForm)
-containerForPasswordCard.addEventListener('click', editOrDeleteCard)
-
-document.addEventListener('click', init)
-// document.addEventListener('click', saveDataCard )
-// document.addEventListener('click', closeModalWindowBtnClose)
-// document.addEventListener('click', addNewRecord)
+/*****function for change view content on list or table ***/
 function viewCardOrList(e){
     e.preventDefault()
     const containersItem = document.querySelectorAll('.main-wrapper__item')
@@ -263,5 +267,26 @@ function viewCardOrList(e){
     }
 
 }
+/*****end function change view ***/
+
+function init(event) {
+    saveDataCard(event)
+    closeModalWindowBtnClose(event)
+    addNewRecord(event)
+    copyPasswordToBuffer(event)
+}
+
+document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
+controlNav.addEventListener('click', toggleNavHandler)
+
+addNewCardBtn.addEventListener('click',renderModalAddCard)
+// accountBtn.addEventListener('click', renderAuthForm)
+containerForPasswordCard.addEventListener('click', editOrDeleteCard)
+
+document.addEventListener('click', init)
+// document.addEventListener('click', saveDataCard )
+// document.addEventListener('click', closeModalWindowBtnClose)
+// document.addEventListener('click', addNewRecord)
+
 changeCardOrList.addEventListener('click', viewCardOrList)
 //TODO: https://github.com/zalog/placeholder-loading прелоадер макет

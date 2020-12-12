@@ -6,3 +6,6 @@ export function clearInput(...input){
         i.value=''
     })
 }
+export function copyToBuffer(text){
+   return  navigator.clipboard.writeText(text)
+}

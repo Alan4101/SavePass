@@ -87,14 +87,19 @@ body{
 
   .search-record-input{
     width: 100%;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 10px;
     padding: .5em .5em .5em 2.1em;
     background: #D2BEF5;
-    outline:none;
     font-size: 20px;
     color: #9377C5;
     font-family: 'Noto Sans JP', sans-serif;
+    outline: none;
+
+    &:focus{
+      outline:none;
+      border: 1px solid $border-color;
+    }
   }
   .search-record-btn{
     position: absolute;
@@ -161,8 +166,7 @@ body{
   justify-content: space-between;
   //padding-top: 1em;
   .card-or-list,.filter-btn{
-    border: none;
-    outline: #543f77;
+    border: 1px solid transparent;
     background-color: #d2bef5;
     color: #9377c5;
     width: 50px;
@@ -170,6 +174,14 @@ body{
     font-size: 25px;
     border-radius: 5px;
     margin:0 .5em;
+
+    &:focus, &:hover, &active{
+      color: #f6f6f6;
+      outline:none;
+      border: 1px solid $border-color;
+      transition: all .2s linear;
+    }
+
 
   }
   .dropdown-filter{
@@ -196,6 +208,10 @@ body{
       outline: none;
       font-family: $font-heads;
       margin-right:.5em;
+
+      &:focus{
+        color: #ffffff;
+      }
       option{
         border: none;
         font-size: 18px;
@@ -231,6 +247,10 @@ body{
     background: #ffffff;
     border-radius: 5px;
 
+    &:focus{
+      outline: #543f77;
+    }
+    //outline: #9377C5;
     .item-header{
       padding: .1em ;
       .title-passcard{
@@ -286,6 +306,16 @@ body{
             @extend %skeleton-loading
           }
         }
+        .copy-password{
+          border: none;
+          background: transparent;
+          color: #cccccc;
+          outline: none;
+          &:hover, &:focus{
+            color: #543f77;
+            transition: color .2s linear;
+          }
+        }
       }
     }
     .item-footer{
@@ -315,22 +345,24 @@ body{
 
       .btn-delete-passcard{
         //background-color: #cccccc;
-        //background-image: url('../img/delete.svg');
+        //background-image: url('./assets/img/delete.svg');
       }
       .btn-card{
-        opacity: 0.5;
+        //opacity: 0.5;
         padding: 0 1em;
+        cursor: pointer;
 
         &:empty{
           @extend %skeleton-loading
         }
 
-        &:hover{
-          color: #150c0c;
-          transform: scale(1.2);
-          transition: all .2ms;
-          opacity: 1;
+        img:hover{
+          filter: saturate(60%);
+          transform: scale(1.1);
+          transition: transform .2s linear;
+          //opacity: 1;
         }
+
       }
     }
 

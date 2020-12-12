@@ -12,7 +12,7 @@ export function createModalAddNewCard(title = 'Modal'){
                 </div>
                 <div class="modal-input">
                     <label for="input-pass-source">Password</label>
-                    <input id="input-pass-source" class="inp-source" type="password" required autocomplete="on">
+                    <input id="input-pass-source" class="inp-source" type="text" required autocomplete="on">
                 </div>
             </form>`
     return createModal(content,title,'Add', 'add-new-pass')
