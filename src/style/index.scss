@@ -155,12 +155,71 @@ body{
     background: #fff;
   }
 }
+.filter-records-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  //padding-top: 1em;
+  .card-or-list,.filter-btn{
+    border: none;
+    outline: #543f77;
+    background-color: #d2bef5;
+    color: #9377c5;
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    border-radius: 5px;
+    margin:0 .5em;
+
+  }
+  .dropdown-filter{
+    position: relative;
+    .filter-sort-date-icon{
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      top: 12px;
+      left: 10px;
+    }
+    .select-sort-in-date{
+      //width: 200px;
+
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding: .5em 2em;
+      font-size: 20px;
+      border: none;
+      background-color: #D2BEF5;
+      color: #9377C5;
+      border-radius: 5px;
+      outline: none;
+      font-family: $font-heads;
+      margin-right:.5em;
+      option{
+        border: none;
+        font-size: 18px;
+      }
+    }
+    .arrow-down{
+      pointer-events: none;
+      position: absolute;
+      right: 20px;
+      top: 17px;
+    }
+  }
+}
 /*main*/
 .container-col{
   width: calc(100% - 60px);
 
   @include max_768{
     width: 100%;
+  }
+}
+.forms-item{
+  @include max_768{
+    max-width: 50%;
   }
 }
 
@@ -278,6 +337,33 @@ body{
   }
 }
 
+.type-list-col{
+  display: flex;
+  flex-direction: column;
+
+}
+.type-list-row{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @include max_425{
+    flex-direction: column !important;
+  }
+  .date-field{
+    @include max_768{
+      display: none;
+    }
+  }
+
+
+
+}
+.row-space-between{
+  flex-direction: row !important;
+  justify-content: space-between !important;
+}
 .wrapper{
   margin-top: 2em;
 }

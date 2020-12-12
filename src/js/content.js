@@ -9,6 +9,7 @@ const mainContainer = document.querySelector('.container-col')
 const addNewCardBtn = document.getElementById('add-new-card')
 const accountBtn = document.getElementById('login-account')
 const containerForPasswordCard = document.getElementById('main-wrapper')
+const changeCardOrList = document.getElementById('changeCardOrList')
 
 //handler for 'burger' button
 function toggleNavHandler(){
@@ -107,6 +108,7 @@ function getFieldsFromAddCard(){
 function editOrDeleteCard(e){
     const path = 'password'
     if(e.target.dataset.button){
+
         const nameCard = e.target.parentNode.parentNode.dataset.name
 
         if(e.target.dataset.button ==='edit-card'){
@@ -119,14 +121,6 @@ function editOrDeleteCard(e){
             animationDomLoad('start')
             deleteRecord('password', nameCard)
                 .then( () => {
-                    // document.querySelectorAll('.sever-content').forEach(i=>{
-                    //     if(i.dataset.name === nameCard){
-                    //         i.remove()
-                    //     }
-                    // })
-                    // selectRecord('password').then((res)=>{
-                    //     console.log(res.val())
-                    // })
                     Password.getAll()
                         .then( (res) => {
                             Password.renderToHtml(res)
@@ -146,6 +140,7 @@ function saveDataCard(e){
                     .then( (res) => {
                         Password.renderToHtml(res)
                         animationDomLoad()
+                        closeModalWindow()
                     })
             })
             .catch(err => console.warn(err))
@@ -169,9 +164,16 @@ function animationDomLoad(action){
         }
     }
 }
-
+//click btn-close modal window
+function closeModalWindowBtnClose(e){
+    e.preventDefault()
+    if(e.target.dataset.action === 'btn-close'){
+        closeModalWindow()
+    }
+}
 /****add new record in db */
 function addNewRecord(e){
+    e.preventDefault()
     if(e.target.dataset.action ==='add-new-pass'){
 
         const data = getFieldsFromAddCard()
@@ -207,7 +209,7 @@ function addNewRecord(e){
 
 function init(e) {
     saveDataCard(e)
-    closeModalWindow(e)
+    closeModalWindowBtnClose(e)
     addNewRecord(e)
 }
 
@@ -220,7 +222,46 @@ containerForPasswordCard.addEventListener('click', editOrDeleteCard)
 
 document.addEventListener('click', init)
 // document.addEventListener('click', saveDataCard )
-// document.addEventListener('click', closeModalWindow)
+// document.addEventListener('click', closeModalWindowBtnClose)
 // document.addEventListener('click', addNewRecord)
+function viewCardOrList(e){
+    e.preventDefault()
+    const containersItem = document.querySelectorAll('.main-wrapper__item')
 
+    if(e.target.classList.contains('fa-th')){
+        e.target.classList.remove('fa-th')
+        e.target.classList.add('fa-bars')
+
+        containerForPasswordCard.classList.add('type-list-col')
+
+        containersItem.forEach(i=>{
+            i.classList.add('type-list-row')
+            i.parentNode.classList.remove('col-md-4')
+            i.childNodes.forEach(j =>{
+                if(j.nodeName!=='#text'){
+                    j.classList.add('col-md-4')
+                }
+            })
+        })
+        document.querySelectorAll('.item-body').forEach(i => i.classList.add('row-space-between'))
+    }else {
+        e.target.classList.add('fa-th')
+        e.target.classList.remove('fa-bars')
+
+        containerForPasswordCard.classList.remove('type-list-col')
+
+        containersItem.forEach(i=>{
+            i.classList.remove('type-list-row')
+            i.parentNode.classList.add('col-md-4')
+            i.childNodes.forEach(j =>{
+                if(j.nodeName!=='#text'){
+                    j.classList.remove('col-md-4')
+                }
+            })
+        })
+        document.querySelectorAll('.item-body').forEach(i => i.classList.remove('row-space-between'))
+    }
+
+}
+changeCardOrList.addEventListener('click', viewCardOrList)
 //TODO: https://github.com/zalog/placeholder-loading прелоадер макет

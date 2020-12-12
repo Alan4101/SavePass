@@ -43,7 +43,7 @@
             <div class="row wrapper">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-8 col-sx-12 forms-item">
                             <form id="search-records-form" class="search-records-form">
 
                                 <input class="search-record-input" name="search-records"  type="search" maxlength="60" placeholder="Search">
@@ -53,10 +53,19 @@
                                         title="Search"><i class="fas fa-search"></i></button>
                             </form>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sx-12 forms-item">
                             <form action="" class="filter-records-form">
-
-                                <input type="text">
+                                <div class="dropdown-filter">
+                                    <img class="filter-sort-date-icon" src="assets/img/filter.svg" alt="">
+                                    <select name="maxOrMinDate" id="maxOrMinDate" class="select-sort-in-date">
+                                        <option value="" disabled selected>Date filter</option>
+                                        <option value="max">New</option>
+                                        <option value="min">Old</option>
+                                    </select>
+                                    <i class="arrow-down fas fa-chevron-down"></i>
+                                </div>
+                                <button id="changeCardOrList" class="card-or-list fas fa-th"></button>
+                                <button id="" class="filter-btn fas fa-palette"></button>
                             </form>
                         </div>
                     </div>

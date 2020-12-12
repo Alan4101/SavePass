@@ -72,12 +72,9 @@ function createModal(content, title, btnName, btnAction, id){
 </div>`
 }
 // close modal window
-export function closeModalWindow(e){
-    if(e.target.dataset.action === 'btn-close'){
-        document.querySelector('.modal-window').classList.add('hidden-modal');
-        setTimeout(()=>document.querySelector('.modal-window').remove(),500)
-
-    }
+export function closeModalWindow(){
+    document.querySelector('.modal-window').classList.add('hidden-modal');
+    setTimeout(()=>document.querySelector('.modal-window').remove(),500)
 }
 
 /*Message*/
