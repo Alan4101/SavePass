@@ -9,7 +9,7 @@ Runs on: `http://localhost:3000/`
 
 ### Project description
 _Implementation of operations to work with the database, but without writing a backend, CRUD - operations, as a backend used
-`firebase` services. The essence is to record the login, password and resource where the registration took place for further storage.
+`firebase` services. 
 Implemented creation of a new record, its editing and deletion._
 
 ##### Resources used
@@ -31,7 +31,6 @@ File name         | Contents
 `firebase.module.js` | Operations with `firebase/database` 
 `utils.js` | Auxiliary functionality
 `password.js`| 
-`auth.js`| authorization and authentication
 `index.html`| Page for the main content of the logged in user
 `main.html`| Home page for login and review
 
@@ -46,7 +45,7 @@ production mode: `npm run build`
 
 ### Опис проекту
 _Реалізація операцій для роботи з базою даних, але без написання бекенду, CRUD - операції, в якості бекенду використано 
-сервіси `firebase`. Суть полягає у записі логіна, паролю та ресурса, де відбулась реєстрація для подальшого зберігання.
+сервіси `firebase`. 
 Реалізовано створення нового запису, його редагування та видалення._ 
 
 ##### Використані ресурси 
@@ -69,7 +68,6 @@ _Реалізація операцій для роботи з базою дан�
 `firebase.module.js` | Операції з `firebase/database` 
 `utils.js` | Допоміний функціонал
 `password.js`| 
-`auth.js`| Для обробки авторизації та аутентифікації
 `index.html`| Сторінка для основного контенту залогіненого користувача
 `main.html`| Головна сторінка для входу та ознайомлення
 

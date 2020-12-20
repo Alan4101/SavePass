@@ -7,7 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
 </head>
-<body>
+<body data-body="home">
+<form id="auth-form" action="">
+    <input id="login" type="email" name="login" pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required>
+    <input id="password" type="text" name="password" pattern="^[-a-zA-Z0-9@\.+_]+$" required>
+    <input id="confirm-password" type="text" name="confirmPassword" pattern="^[-a-zA-Z0-9@\.+_]+$" required>
+    <button id="auth-btn" name="submit" type="submit">Send</button>
+</form>
 <p>Welcome to Master Password</p>
 </body>
 </html>

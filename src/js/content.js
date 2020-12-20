@@ -1,7 +1,24 @@
-import { createModalAddNewCard, createModalAuth, editPasswordCardModal, closeModalWindow, message } from "./modal";
+import {
+    createModalAddNewCard,
+    createModalAuth,
+    editPasswordCardModal,
+    closeModalWindow,
+    message
+} from "./modal";
 import { Password } from "./password";
-import {clearInput, copyToBuffer, isValid} from "./utils";
-import { selectRecord, deleteRecord, updateRecord } from './firebase.operation'
+import {
+    clearInput,
+    copyToBuffer,
+    isValid
+} from "./utils";
+import {
+    selectRecordById,
+    deleteRecord,
+    updateRecord,
+    createRecord,
+    selectAllRecord
+} from './firebase.operation'
+// import './auth'
 
 const subNav = document.getElementById('sub-nav')
 const controlNav = document.getElementById('control-nav')
@@ -117,7 +134,7 @@ function editOrDeleteCard(e){
 
         if(e.target.dataset.button ==='edit-card'){
 
-            selectRecord(path, nameCard).then( snapshot => {
+            selectRecordById(path, nameCard).then( snapshot => {
                 document.body.insertAdjacentHTML('beforeend', editPasswordCardModal('Edit', snapshot.val(), nameCard))
                 animationModal()
             })
@@ -170,15 +187,15 @@ function animationDomLoad(action){
 }
 //click btn-close modal window
 function closeModalWindowBtnClose(e){
-    e.preventDefault()
     if(e.target.dataset.action === 'btn-close'){
+        e.preventDefault()
         closeModalWindow()
     }
 }
 /****add new record in db */
 function addNewRecord(e){
-    e.preventDefault()
     if(e.target.dataset.action ==='add-new-pass'){
+        e.preventDefault()
 
         const data = getFieldsFromAddCard()
 
@@ -191,20 +208,18 @@ function addNewRecord(e){
 
             animationDomLoad(true)
 
-            Password.create(data)
-                .then( () => {
-                    Password.getAll()
-                        .then( (res) => {
-                            Password.renderToHtml(res)
-                            animationDomLoad()
-                        })
-                    let data1 = getFieldsFromAddCard()
-                    clearInput(data1.nameSource, data1.login, data1.password)
+            createRecord('password', data)
+                .then( ()=> {
+                    selectAllRecord('password').then( res => {
+                        Password.renderToHtml(res)
+                        animationDomLoad()
+
+                        let data1 = getFieldsFromAddCard()
+                        clearInput(data1.nameSource, data1.login, data1.password)
+
+                    })
                 })
-                .catch( err => {
-                    message('error', 'Error', 'Something wrong, try again!')
-                    console.error(err)
-                })
+
         }
 
     }
@@ -229,8 +244,8 @@ function copyPasswordToBuffer(e){
 
 /*****function for change view content on list or table ***/
 function viewCardOrList(e){
-    e.preventDefault()
     const containersItem = document.querySelectorAll('.main-wrapper__item')
+    e.preventDefault()
 
     if(e.target.classList.contains('fa-th')){
         e.target.classList.remove('fa-th')
@@ -275,18 +290,40 @@ function init(event) {
     addNewRecord(event)
     copyPasswordToBuffer(event)
 }
-
-document.addEventListener('DOMContentLoaded', mediaQueryForSubPanel)
-controlNav.addEventListener('click', toggleNavHandler)
-
-addNewCardBtn.addEventListener('click',renderModalAddCard)
 // accountBtn.addEventListener('click', renderAuthForm)
-containerForPasswordCard.addEventListener('click', editOrDeleteCard)
+function initLoaded(){
 
-document.addEventListener('click', init)
-// document.addEventListener('click', saveDataCard )
-// document.addEventListener('click', closeModalWindowBtnClose)
-// document.addEventListener('click', addNewRecord)
+    mediaQueryForSubPanel()
+    /****/
+    Password.getAll()
+        .then( res=>{
+            for(let i of document.querySelectorAll('.temp')){
+                i.style.visibility = "hidden"
+            }
+            Password.renderToHtml(res)
+        })
+        .catch( err => console.log(err))
+}
 
-changeCardOrList.addEventListener('click', viewCardOrList)
+if(document.body.dataset.body!=='home'){
+
+    document.addEventListener("DOMContentLoaded", initLoaded)
+
+    document.addEventListener('click', init)
+    // document.addEventListener('click', saveDataCard )
+    // document.addEventListener('click', closeModalWindowBtnClose)
+    // document.addEventListener('click', addNewRecord)
+
+    controlNav.addEventListener('click', toggleNavHandler)
+
+    addNewCardBtn.addEventListener('click',renderModalAddCard)
+
+    containerForPasswordCard.addEventListener('click', editOrDeleteCard)
+
+    changeCardOrList.addEventListener('click', viewCardOrList)
+
+    console.log('page MP')
+}else {
+
+}
 //TODO: https://github.com/zalog/placeholder-loading прелоадер макет

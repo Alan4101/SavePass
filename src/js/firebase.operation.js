@@ -1,6 +1,6 @@
 import firebase from "firebase/app"
 import 'firebase/database'
-// import 'firebase/auth'
+import 'firebase/auth'
 import { message } from "./modal";
 
 const firebaseConfig = {
@@ -17,16 +17,26 @@ const firebaseConfig = {
 firebase.initializeApp( firebaseConfig )
 
 /****** operation with db******/
-export function updateRecord(path, id, data){
-    return firebase.database().ref(`${path}/${id}`).set(data)
+export async function updateRecord(path, id, data){
+    return await firebase.database().ref(`${path}/${id}`).set(data)
 }
-//select record from db
-export function selectRecord(path, id){
-    return  firebase.database().ref(`${path}/${id}`).once('value')
+//select record by id from db
+export async function selectRecordById(path, id){
+    return  await firebase.database().ref(`${path}/${id}`).once('value')
+}
+// select all record
+export async function selectAllRecord(path){
+    try {
+        const list = await firebase.database().ref(`${path}`).once('value')
+        return list.val()
+    }catch (error){
+        console.log(error)
+        throw error
+    }
 }
 //deleted data from db
-export function deleteRecord(path,id){
-    return  firebase.database().ref(`${path}/${id}`).remove()
+export async function deleteRecord(path,id){
+    return  await firebase.database().ref(`${path}/${id}`).remove()
         .then( () =>{
             message('success','Success', 'The card is successfully deleted!')
         })
@@ -36,4 +46,35 @@ export function deleteRecord(path,id){
 
         })
 }
+// create new record
+export async function createRecord(path, data){
+    try{
+        const addData = await firebase.database().ref(`${path}`).push(data)
+        // console.log(addData)
+    }catch (error){
+        console.log(error.message)
+        throw error
+    }
+}
 /**** end operation from db ****/
+
+/**** auth operation ****/
+export function createUser(email, password){
+    return  firebase.auth().createUserWithEmailAndPassword(email,password)
+        .then( user =>{
+            console.log(user)
+        })
+        .catch( error => {
+            console.log(error.code, error.message)
+        })
+}
+export function sigIn(email, password){
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+        .then( user => {
+            console.log(user)
+        })
+        .catch(error => {
+            console.log(error.code, error.message)
+        })
+}
+/****end auth ***/

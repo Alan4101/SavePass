@@ -10,19 +10,11 @@ import '../style/index.scss'
 import './content.js'
 import { Password } from "./password";
 
-document.addEventListener("DOMContentLoaded",()=>{
 
-
-    Password.getAll()
-        .then( res=>{
-            for(let i of document.querySelectorAll('.temp')){
-               i.style.visibility = "hidden"
-            }
-            Password.renderToHtml(res)
-        })
-        .catch( err => console.log(err))
-})
-
+// document.getElementById('mainPage').addEventListener('click', function (e){
+//     e.stopPropagation()
+//     console.log('click')
+// })
 console.log('app.js')
 
 

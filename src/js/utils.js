@@ -9,3 +9,8 @@ export function clearInput(...input){
 export function copyToBuffer(text){
    return  navigator.clipboard.writeText(text)
 }
+export function confirmPassword(password, cPassword){
+     // return  !cPassword.includes(password)
+    console.log(password===cPassword)
+    return password===cPassword
+}
